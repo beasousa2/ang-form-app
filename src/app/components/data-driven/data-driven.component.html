@@ -1,0 +1,93 @@
+<button (click)="addFruit()">ADD</button>
+
+<form [formGroup]="myFormList">
+    <div formArrayName="fruits" *ngFor="let item of myFormList.get('fruits').controls; let i of index;">
+        <div formControlName="i">
+            <label for="">
+                <p>Nome</p>
+                <input type="text" formControlName="name">
+                
+            </label>
+
+            <label for="">
+                <p>Preço</p>
+                <input type="number" formControlName="price" >
+            </label>
+        </div>
+        <button (click)="removeFruit(i)">Excluir</button>
+    </div>
+</form>
+<hr>
+<form [formGroup]="myForm" (submit)="onSubmit()">
+    <div formGroupName="informacoes">
+        <label for="">
+            <p>Nome</p>
+            <input type="text" formControlName="nome">
+        </label>
+
+        <label for="">
+            <p>Idade</p>
+            <input type="number" formControlName="idade" >
+        </label>
+        <label for="">
+            <p>E-mail</p>
+            <input type="email" formControlName="email">
+        </label>
+        <label for="">
+            <p>Confirmar E-mail</p>
+            <input type="email" formControlName="confirmaEmail">
+        </label>
+        <div>
+            <p>Sexo</p>
+            <label for="">
+                <input type="radio" formControlName="sexo" [value]="'M'"> Masculino
+            </label>
+            <label for="">
+                <input type="radio" formControlName="sexo" [value]="'F'" > Feminino
+            </label>
+        </div>
+        <label for="">
+            <p>Está empregado?</p>
+            <input type="checkbox" formControlName="empregado">
+        </label>
+    </div>
+    <div formGroupName="endereco">
+        <label for="cep">
+            <p>Cep</p>
+            <input type="text" formControlName="cep" id="cep" (blur)="getAddress()">
+        </label>
+        <label for="endereco">
+            <p>Endereco</p>
+            <input type="text" formControlName="logradouro" id="endereco">
+        </label>
+        <label for="numero">
+            <p>Número</p>
+            <input type="text" formControlName="numero" id="numero">
+        </label>
+        <label for="complemento">
+            <p>Complemento</p>
+            <input type="text" formControlName="complemento" id="complemento">
+        </label>
+        <label for="bairro">
+            <p>Bairro</p>
+            <input type="text" formControlName="bairro" id="bairro">
+        </label>
+        <label for="cidade">
+            <p>Cidade</p>
+            <input type="text" formControlName="localidade" id="cidade">
+        </label>
+        <label for="estado">
+            <p>Estado</p>
+            <!--input type="text" formControlName="uf" id="estado"-->
+            <!-- select formControlName="uf">
+                <option *ngFor="let state of states" [value]="state.sigla"> {{state.nome }}, {{state.sigla}} </option>
+            </select -->
+
+            <select formControlName="uf" [compareWith]="compareState">
+                <option *ngFor="let state of states" [ngValue]="state"> {{state.nome }}, {{state.sigla}} </option>
+            </select>
+        </label>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
